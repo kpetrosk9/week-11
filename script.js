@@ -15,10 +15,76 @@ var addListButton = document.getElementById("add-list-button");
 var addItemButton = document.getElementById("add-item-button");
 
 // FUNCTIONS TO UPDATE THE HTML PAGE WITH RESPECT TO DATA
+function updateLists() {
+  while (listDiv.hasChildNodes()) {
+    listDiv.removeChild(listDiv.lastChild);
+  }
+
+  listArray.forEach(function(list, i) {
+    // Create an 'a' element
+    var aElement = document.createElement("a");
+    aElement.classList.add("list-group-item");
+    aElement.classList.add("list-group-item-action");
+    aElement.classList.add("list");
+
+    aElement.setAttribute("data-index", i);
+
+    var textNode = document.createTextNode(list.name);
+    aElement.appendChild(textNode);
+
+    listDiv.appendChild(aElement);
+  });
+}
+
+function updateItemsForSelectedList() {
+  while (itemDiv.hasChildNodes()) {
+    itemDiv.removeChild(itemDiv.lastChild);
+  }
+
+  var listItemArray = listArray[selectedList].items;
+  listItemArray.forEach(function(item, i) {
+    // HOMEWORK
+    // Populate the list-items div (the right div) wit respective list items
+    // - make a new 'a' element
+    // - add classes to its classList
+    // - set value of 'data-index' attribute to i
+    // - Create a textNode with item name
+    // - append textNode to the 'a' element
+    // - append 'a' element to the itemDiv
+  });
+}
+
+updateLists();
+updateItemsForSelectedList();
 
 // ADDING TO LIST
+addListButton.addEventListener("click", function(e) {
+  e.preventDefault();
+  var listName = document["add-list-form"]["list-name-input"].value;
+  if (listName.length >= 3) {
+    var newList = {
+        name: listName,
+        items: []
+      };
+    listArray.push(newList);
+    updateLists();
+  } else {
+    alert("Please enter a valid list name: Atleast 3 characters");
+  }
+});
 
 // ADDING TO LIST ITEMS
+addItemButton.addEventListener("click", function(e) {
+  e.preventDefault();
+  var currentList = listArray[selectedList];
+  var itemArray = currentList.items;
+
+  // HOMEWORK
+  // - get the input value in a variable
+  // - check if the input value is more than 2 characters
+  // - add it into listItemArray
+  // - update listItem div
+});
 
 // POP-UP HANDLING CODE
 var buttonsArray = document.querySelectorAll(".popup-button");
